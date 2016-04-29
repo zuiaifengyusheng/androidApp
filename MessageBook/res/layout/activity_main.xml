@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="true"
+    android:measureWithLargestChild="true"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.wxx20132990.messagebook.MainActivity" >
+
+   <ListView
+       android:id="@+id/datashow"
+       android:layout_width="fill_parent"
+       android:layout_height="match_parent"
+       android:layout_above="@+id/RelativeLayout2"
+       android:layout_alignParentTop="true"
+       android:textSize="15sp" />
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#000000"
+        android:gravity="center" >
+
+        <ImageButton
+            android:id="@+id/imageadd1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/Space1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/add"
+            android:onClick="ImageButton_OnClick1"
+            android:scaleType="centerCrop" />
+
+        <Space
+            android:id="@+id/Space1"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageadd1" />
+
+        <ImageButton
+            android:id="@+id/imagesearch2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/Space1"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Space1"
+            android:background="@drawable/search"
+            android:onClick="ImageButton_OnClick2"
+            android:scaleType="centerCrop" />
+
+        <Space
+            android:id="@+id/Space2"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignBaseline="@+id/Space1"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imagesearch2" />
+
+        <ImageButton
+            android:id="@+id/imagedelete3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/Space1"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Space2"
+            android:background="@drawable/delete"
+            android:onClick="ImageButton_OnClick3"
+            android:scaleType="centerCrop" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/datashow"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:visibility="gone" >
+
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit"
+            android:ems="13"
+            android:hint="请输入要查找的姓名" />
+
+        <ImageButton
+            android:id="@+id/OK"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/search2" />
+
+    </LinearLayout>
+
+</RelativeLayout>
