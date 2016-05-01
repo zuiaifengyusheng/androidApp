@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false"
+        android:layout_marginTop="75dp"
+        android:text="TextView"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        android:paddingLeft="2dp"
+        android:background="@drawable/edit"
+        android:text="Large Text" 
+        android:textSize="23dp"
+        android:inputType="textPersonName"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+
+    <TextView
+      android:id="@+id/textView1"
+      android:layout_width="50dp"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/name"
+      android:layout_marginLeft="40dp"
+      android:layout_marginTop="40dp"
+      android:text="手机："
+      android:textColor="#000000"
+      android:textSize="15dp" />
+   <TextView
+      android:id="@+id/textView2"
+      android:layout_width="50dp"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/textView1"
+      android:layout_marginLeft="40dp"
+      android:layout_marginTop="30dp"
+      android:text="地址："
+      android:textColor="#000000"
+      android:textSize="15dp" />
+
+  <TextView
+      android:id="@+id/textView3"
+      android:layout_width="50dp"
+      android:layout_height="wrap_content"      
+      android:layout_below="@+id/textView2"
+      android:layout_marginLeft="40dp"
+      android:layout_marginTop="30dp"
+      android:text="邮箱："
+      android:textColor="#000000"
+      android:textSize="15dp" />
+   
+   <EditText
+      android:id="@+id/phone"
+      android:layout_width="wrap_content"
+      android:layout_height="30dp"
+      android:layout_alignBaseline="@+id/textView1"
+      android:paddingLeft="2dp"
+      android:background="@drawable/edit"
+      android:layout_toRightOf="@+id/textView1"
+      android:ems="9"
+      android:focusable="false"
+      android:focusableInTouchMode="false"
+      android:inputType="phone" >
+      
+   </EditText>
+    
+   <EditText
+       android:id="@+id/address"
+       android:layout_width="wrap_content"
+       android:layout_height="30dp"
+       android:layout_alignBaseline="@+id/textView2"
+       android:paddingLeft="2dp"
+       android:layout_alignLeft="@+id/phone"
+       android:background="@drawable/edit"
+       android:inputType="textPostalAddress"
+       android:focusable="false"
+       android:focusableInTouchMode="false"
+       android:ems="9" />
+
+   <EditText
+       android:id="@+id/email"
+       android:layout_width="wrap_content"
+       android:layout_height="30dp"
+       android:layout_alignBaseline="@+id/textView3"
+       android:paddingLeft="2dp"
+       android:layout_alignLeft="@+id/address"
+       android:ems="9"
+       android:background="@drawable/edit"
+       android:focusable="false"
+       android:inputType="textEmailAddress" >
+
+  </EditText>
+
+   <Button
+       android:id="@+id/delete"
+       android:layout_width="wrap_content"
+       android:layout_height="40dp"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentLeft="true"
+       android:layout_toLeftOf="@+id/edit"
+       android:background="#000000"
+       android:onClick="ButtonDelete_Onclick"
+       android:text="删除"
+       android:textColor="#FFFFFF"
+       android:textSize="20dp"
+       android:visibility="visible" />
+
+   <Button
+       android:id="@+id/close"
+       android:layout_width="wrap_content"
+       android:layout_height="40dp"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentRight="true"
+       android:layout_toRightOf="@+id/name"
+       android:background="#000000"
+       android:onClick="ButtonClose_Onclick"
+       android:text="退出"
+       android:textColor="#FFFFFF"
+       android:textSize="20dp"
+       android:visibility="visible" />
+
+   <Button
+       android:id="@+id/edit"
+       android:layout_width="wrap_content"
+       android:layout_height="40dp"
+       android:layout_alignLeft="@+id/name"
+       android:layout_alignParentBottom="true"
+       android:layout_toLeftOf="@+id/close"
+       android:text="编辑"
+       android:onClick="ButtonEdit_Onclick"
+       android:background="#000000"
+       android:textSize="20dp"
+       android:textColor="#FFFFFF"
+       android:visibility="visible" />
+
+   <Button
+       android:id="@+id/back"
+       android:layout_width="wrap_content"
+       android:layout_height="40dp"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentRight="true"
+       android:layout_toRightOf="@+id/name"
+       android:background="#000000"
+       android:onClick="ButtonBack_Onclick"
+       android:text="退出"
+       android:textColor="#FFFFFF"
+       android:textSize="20dp"
+       android:visibility="gone" />
+"
+
+   <Button
+       android:id="@+id/save"
+       android:layout_width="wrap_content"
+       android:layout_height="40dp"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentLeft="true"
+       android:layout_toLeftOf="@+id/blank"
+       android:background="#000000"
+       android:onClick="ButtonSave_Onclick"
+       android:text="保存"
+       android:textColor="#FFFFFF"
+       android:textSize="20dp"
+       android:visibility="gone" />
+
+   <Button
+       android:id="@+id/blank"
+       android:layout_width="wrap_content"
+       android:layout_height="40dp"
+       android:layout_alignLeft="@+id/name"
+       android:layout_alignParentBottom="true"
+       android:layout_toLeftOf="@+id/back"
+       android:text=""
+       android:background="#000000"
+       android:textSize="20dp"
+       android:textColor="#FFFFFF"
+       android:visibility="gone"/>"
+   
+</RelativeLayout>
