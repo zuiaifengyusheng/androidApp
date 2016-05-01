@@ -84,7 +84,7 @@ public class MyDatabase extends SQLiteOpenHelper {
 			item.put("Name",cursor.getString(cursor.getColumnIndex("Name")));
 			item.put("Phone",cursor.getString(cursor.getColumnIndex("Phone")));
 			item.put("Address",cursor.getString(cursor.getColumnIndex("Address")));
-			item.put("Email",cursor.getInt(cursor.getColumnIndex("Email")));
+			item.put("Email",cursor.getString(cursor.getColumnIndex("Email")));
 			list.add(item);
 		}
 		db.close();
@@ -92,7 +92,27 @@ public class MyDatabase extends SQLiteOpenHelper {
 		
 	}
 	
-	//查找联系人
+	//按照id号查找联系人
+	public ArrayList rawQuery(int id)
+	{
+		ArrayList list=new ArrayList();
+		Cursor cursor=db.rawQuery("Select * from person where id="+id, null);
+		cursor.moveToNext();
+		String I=cursor.getString(cursor.getColumnIndex("id"));
+		list.add(I);
+		String N=cursor.getString(cursor.getColumnIndex("Name"));
+		list.add(N);
+		String P=cursor.getString(cursor.getColumnIndex("Phone"));
+		list.add(P);
+		String A=cursor.getString(cursor.getColumnIndex("Address"));
+		list.add(A);
+		String E=cursor.getString(cursor.getColumnIndex("Email"));
+		list.add(E);
+		db.close();
+		return list;
+	}
+	
+	//按照姓名查找联系人
 	public ArrayList Query(String[] name)
 	{
 		ArrayList list=new ArrayList();
@@ -106,7 +126,7 @@ public class MyDatabase extends SQLiteOpenHelper {
 			item.put("Name",cursor.getString(cursor.getColumnIndex("Name")));
 			item.put("Phone",cursor.getString(cursor.getColumnIndex("Phone")));
 			item.put("Address",cursor.getString(cursor.getColumnIndex("Address")));
-			item.put("Email",cursor.getInt(cursor.getColumnIndex("Email")));
+			item.put("Email",cursor.getString(cursor.getColumnIndex("Email")));
 			list.add(item);
 		}
 		db.close();
@@ -114,10 +134,18 @@ public class MyDatabase extends SQLiteOpenHelper {
 	}
 	
 	//删除单个联系人
-	public void deletedMarked(int id)
+	public Boolean deleted(int id)
 	{
-		db.delete("person", "id=?", new String[]{String.valueOf(id)});
+		String sql="delete from person where id="+id;
+		try{
+			db.execSQL(sql);
+			db.close();
+			return true;
+		}catch(Exception e){
+		return false;
+		}
 	}
+	
 	
 	//批量删除联系人
 	public void deleteMarked(ArrayList<Integer> deleteId)

@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +49,7 @@ public class MainActivity extends Activity {
 	private LinearLayout layout;
 	private ImageButton ibutton=null;
 	ArrayList<Integer> deleteId;
+	private boolean lean;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,7 +58,7 @@ public class MainActivity extends Activity {
 		
 		show=(ListView)findViewById(R.id.datashow);
 		
-		//创建person表		
+		//创建person表,建表语句		
 		db=new MyDatabase(this);
 		strsql="create table person";
 		strsql+=" (";
@@ -78,23 +80,32 @@ public class MainActivity extends Activity {
 			Toast.makeText(this,"没有查到任何数据", Toast.LENGTH_SHORT).show();
 		}
 		adapter=new SimpleAdapter(this, list, R.layout.listitem, new String[]{"id","Name","Phone","Address","Email"},
-				new int[]{R.id.li_id,R.id.li_name,R.id.li_phone,R.id.li_address,R.id.li_email});
+				new int[]{R.id.li_id,R.id.li_name,R.id.li_phone});
 		show.setAdapter(adapter);
 		
-//		show.setOnItemClickListener(new OnItemClickListener()
-//		{
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//					long arg3) {
-//				// TODO Auto-generated method stub
-//				//得到Item位置
-//				HashMap item=(HashMap)arg0.getItemAtPosition(arg2);
-//				String number=String.valueOf(item.get("Phone"));
-//				
-//			}
-//			
-//		});
+		
+		//显示联系人详细信息
+		show.setOnItemClickListener(new OnItemClickListener()
+		{
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				//得到Item位置
+				HashMap item=(HashMap)arg0.getItemAtPosition(arg2);
+				String number=String.valueOf(item.get("id"));
+
+				Intent intent=new Intent(MainActivity.this,informationActivity.class);
+
+				Bundle bundle=new Bundle();				
+				bundle.putString("str",number);
+
+				intent.putExtras(bundle);
+				startActivityForResult(intent, 0);  	
+			}
+			
+		});
 		
 		//长按时间处理可以选中
 		show.setOnItemLongClickListener(new OnItemLongClickListener(){
@@ -121,6 +132,7 @@ public class MainActivity extends Activity {
 				}
 				else
 				{
+					lean=true;
 					markedView.setVisibility(View.VISIBLE);
                     markedView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 						
@@ -129,8 +141,11 @@ public class MainActivity extends Activity {
 							// TODO Auto-generated method stub
 							if(isChecked)
 							{
-								deleteId.add(id);
-								
+								deleteId.add(id);							
+							}
+							if(!isChecked)
+							{
+								deleteId.remove(id);
 							}
 						}
 					});
@@ -144,12 +159,62 @@ public class MainActivity extends Activity {
 	}
 	
 	
+	//重写Back键
+	public boolean onKeyDown(int keyCode,KeyEvent event) {
+
+		 if (keyCode == KeyEvent.KEYCODE_BACK&&lean==true)
+		 {
+			
+		    //这里重写返回键
+			db=new MyDatabase(this);
+		    db.Execsql(strsql);
+						
+			//查询全部联系人
+			list=db.getAlluser();
+			if(list.size()==0)
+			{
+				Toast.makeText(this,"没有查到任何数据", Toast.LENGTH_SHORT).show();
+			}
+			adapter=new SimpleAdapter(this, list, R.layout.listitem, new String[]{"id","Name","Phone","Address","Email"},
+					new int[]{R.id.li_id,R.id.li_name,R.id.li_phone});
+			show.setAdapter(adapter);
+			db.close();
+			lean=false;
+		    return true;
+		 }
+		 else if (keyCode == KeyEvent.KEYCODE_BACK&&lean==false)
+		 {
+			 finish();
+			 return true;
+		 }
+		 return false;
+
+    }
+	
+	@Override
+	public void onRestart()
+	{
+		db=new MyDatabase(this);
+        db.Execsql(strsql);
+				
+		//查询全部联系人
+		list=db.getAlluser();
+		if(list.size()==0)
+		{
+			Toast.makeText(this,"没有查到任何数据", Toast.LENGTH_SHORT).show();
+		}
+		adapter=new SimpleAdapter(this, list, R.layout.listitem, new String[]{"id","Name","Phone","Address","Email"},
+				new int[]{R.id.li_id,R.id.li_name,R.id.li_phone});
+		show.setAdapter(adapter);
+		db.close();
+	}
+	
 	//添加联系人
 	public void ImageButton_OnClick1(View v)
 	{
 		Intent intent=new Intent(this,AddActivity.class);
-		startActivity(intent);
-		finish();
+		startActivityForResult(intent, 1);
+		this.finish();
 		
 	}
 
@@ -195,7 +260,7 @@ public class MainActivity extends Activity {
 					else
 					{
 						adapter=new SimpleAdapter(MainActivity.this, list, R.layout.listitem, new String[]{"id","Name","Phone","Address","Email"},
-							new int[]{R.id.li_id,R.id.li_name,R.id.li_phone,R.id.li_address,R.id.li_email});
+							new int[]{R.id.li_id,R.id.li_name,R.id.li_phone});
 					    show.setAdapter(adapter);
 					}
 					
@@ -223,13 +288,13 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					
+					lean=false;
 					db=new MyDatabase(MainActivity.this);
 				    //调用数据库的删除函数进行删除记录
 					db.deleteMarked(deleteId);
 					list=db.getAlluser();
 					adapter=new SimpleAdapter(MainActivity.this, list, R.layout.listitem, new String[]{"id","Name","Phone","Address","Email"},
-							new int[]{R.id.li_id,R.id.li_name,R.id.li_phone,R.id.li_address,R.id.li_email});
+							new int[]{R.id.li_id,R.id.li_name,R.id.li_phone});
 					show.setAdapter(adapter);
 					deleteId.clear();
 				}

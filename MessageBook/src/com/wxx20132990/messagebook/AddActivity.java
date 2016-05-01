@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 public class AddActivity extends Activity {
@@ -32,8 +34,21 @@ public class AddActivity extends Activity {
 		contentValues = new ContentValues();
 	}
 
-	
-	public void ImageButto2_OnClick(View v)
+	//重写Back键
+   public boolean onKeyDown(int keyCode,KeyEvent event) {
+
+	  if (keyCode == KeyEvent.KEYCODE_BACK)
+	  {
+			Intent intent=new Intent(this,MainActivity.class);
+		    startActivityForResult(intent, 1);
+		    finish();
+			return true;
+	  }
+			 
+	  return false;
+
+	}
+	public void Butto2_OnClick(View v)
 	{
 		db=new MyDatabase(this);
     	
@@ -60,13 +75,13 @@ public class AddActivity extends Activity {
     		Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
     		//返回到上一个Activity
     		Intent intent=new Intent(this,MainActivity.class);
-    		startActivity(intent);
+    		startActivityForResult(intent, 1);
     		//销毁当前视图
     		finish();
     	}
     	db.close();
 	}
-	public void ImageButto1_OnClick(View v)
+	public void Butto1_OnClick(View v)
 	{
 		this.finish();
 	}

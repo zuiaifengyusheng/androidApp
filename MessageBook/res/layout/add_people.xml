@@ -4,35 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="#C0C0C0" >
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/clear"
-            android:onClick="ImageButto2_OnClick"
-            android:scaleType="centerInside" />
-
-        <ImageButton
-            android:id="@+id/imageButton1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/minus"
-            android:onClick="ImageButto1_OnClick" />
-
-    </RelativeLayout>
     
     <TextView
         android:id="@+id/textView1"
@@ -131,7 +102,40 @@
         android:paddingBottom="1dp"
         android:textSize="15sp" />
 
+    <Button
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/textView1"
+        android:background="#000000"
+        android:onClick="Butto1_OnClick"
+        android:text="关闭"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF" />
 
-    
+    <Button
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/textView1"
+        android:background="#000000"
+        android:onClick="Butto2_OnClick"
+        android:text="添加"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView1"
+        android:background="#000000"
+        android:text="" />
 
 </RelativeLayout>
